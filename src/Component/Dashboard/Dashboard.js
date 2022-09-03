@@ -11,7 +11,7 @@ function Dashboard() {
     }, [])
     let value = localStorage.getItem('id');
     let fetchData = async () => {
-        let userData = await axios.get(`${config.api}/portal/recipients/${userId}`);
+        let userData = await axios.get(`${config.api}/portal/recipients/${userId}`,);
         console.log(userData);
         // userContextData.setRecipient(userData.data);
     }
