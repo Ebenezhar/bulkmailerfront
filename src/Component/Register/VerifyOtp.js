@@ -1,10 +1,7 @@
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
 import UserContext from "../../UserContext/UserContext";
-
 function VerifyOtp() {
   let navigate = useNavigate();
   const userContextData = useContext(UserContext);
@@ -21,10 +18,14 @@ function VerifyOtp() {
       }
       return errors;
     },
-    onSubmit: async (values) => {
-      console.log(values);
-      navigate("/register/form");
+    onSubmit: (values) => {
       try {
+        if (values.otp == userContextData.otp) {
+          alert("OTP verified successfully");
+          navigate("/register/form");
+        } else if (values.otp != userContextData.otp) {
+          alert("OTP Mismatched. Try again");
+        }
       } catch (errors) {
         console.log(errors);
       }

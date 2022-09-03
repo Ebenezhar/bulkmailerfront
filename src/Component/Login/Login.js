@@ -1,38 +1,62 @@
 import axios from "axios";
 import { useFormik } from "formik";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { config } from "../../Config/config";
+import UserContext from "../../UserContext/UserContext";
 
 function Login() {
+  const userContextData = useContext(UserContext)
   const emailPattern = new RegExp(/^\S+@\S+\.\S+$/);
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    validate: (value) => {
+    validate: (values) => {
       let errors = {};
-      if (!value.email) {
+      if (!values.email) {
         errors.email = "Email is required";
-      } else if (!value.emailPattern.test(formik.values.email)) {
+      } else if (!emailPattern.test(formik.values.email)) {
         errors.email = "Email is not valid";
       }
-      if (!value.password) {
+      if (!values.password) {
         errors.password = "Password is required";
       }
       return errors;
     },
     onSubmit: async (values) => {
-      const register = await axios.post(`${config.api}/login`, values);
+      try {
+        const login = await axios.post(`${config.api}/login`, values);
+        console.log(login);
+        if (login.data.token) {
+          localStorage.setItem('token', login.data.token);
+          localStorage.setItem('userName', login.data.name);
+          localStorage.setItem('gender', login.data.gender);
+          localStorage.setItem('id', login.data.id);
+          userContextData.setLoginPerson(login.data.name);
+          navigate('/portal');
+        } else {
+          alert(login.data.message);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
   return (
     <div className="min-h-screen bg-grey-50 flex flex-col justify-center bg-gradient-to-r from-emerald-400 to-emerald-200">
       <div className="max-w-md w-full mx-auto mt-4 bg-white p-8 border border-grey-300 rounded shadow-2xl">
+        <div className="text-start text-white mb-10 font-bold">
+          <img
+            style={{ display: "inline" }}
+            src="https://img.icons8.com/3d-fluency/30/000000/mail.png" alt="Mail"
+          />
+          <span className="font-lg text-gray-800 "> Bulk Mailer App</span>
+        </div>
         <div className="max-w-md w-full mx-auto">
-          <div className="text-center font-medium text-xl">Mailer</div>
-          <div className="text-3xl font-bold text-grey-900 mt-2 text-center">
+          <div className="text-xl font-bold text-grey-900 mt-2 text-center">
             Send your email here
           </div>
         </div>
@@ -44,21 +68,27 @@ function Login() {
             Email
           </label>
           <input
-            type="text"
-            className="w-full p-2 border border-gray-300 rounded mt-0"
+            type={"text"}
+            name={"email"}
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            className="w-full p-2 border font-semibold border-gray-300 rounded mt-0"
             placeholder="abc@example.com"
           ></input>
           <label className="text-sm font-bold text-gray-600 block">
             Password
           </label>
           <input
-            type="text"
-            className="w-full p-2 border border-gray-300 rounded"
+            type={"text"}
+            name={"password"}
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            className="w-full p-2 border font-semibold border-gray-300 rounded"
             placeholder="********"
           ></input>
           <div className="w-full flex flex-wrap mb-2 justify-between">
-            <button className="w-2/6 py-2 px-4 bg-blue-600 hover:bg-blue-700 rounded-md text-white text-sm">
-              Submit
+            <button type={"submit"} className="w-2/6 py-2 px-4 bg-emerald-400 hover:bg-emerald-300 rounded-md text-blue-800 text-sm font-bold">
+              Login
             </button>
             <p>
               <Link
@@ -74,7 +104,7 @@ function Login() {
         <p className="mt-3 p-2 text-sm text-center">
           Don't you have an account?{" "}
           <Link
-            className="text-blue-500 text-sm hover:text-blue-700 underline-offset-4 "
+            className="text-blue-500 text-sm hover:text-blue-700 underline-offset-0 hover:font-bold hover:underline-offset-4"
             to="/register/verifyMail"
           >
             <u>Register</u>

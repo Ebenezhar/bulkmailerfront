@@ -1,9 +1,17 @@
+import axios from "axios";
 import { useFormik } from "formik";
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { config } from "../../Config/config";
 import UserContext from "../../UserContext/UserContext";
 
 function Register() {
+  const navigate = useNavigate();
+  const [gender, setgender] = useState();
+  const handlegender = (e) => {
+    setgender(e.target.value)
+  }
+
   const userContextData = useContext(UserContext);
   const emailPattern = new RegExp(/^\S+@\S+\.\S+$/);
   const passwordPattern =
@@ -21,7 +29,6 @@ function Register() {
     },
     validate: (values) => {
       let errors = {};
-      console.log(values.firstName);
       if (!values.firstName) {
         errors.firstName = "Please enter your first name";
       } else if (values.firstName.length < 5) {
@@ -34,7 +41,8 @@ function Register() {
       }
       if (!values.email) {
         errors.email = "Please enter your email";
-      } else if (!emailPattern.test(formik.values.email)) {
+      }
+      else if (!emailPattern.test(formik.values.email)) {
         errors.email = "Email is not valid";
       }
       if (!values.age) {
@@ -45,12 +53,14 @@ function Register() {
       if (!values.country) {
         errors.country = "Please enter your country";
       }
+      values.gender = gender;
       if (!values.gender) {
         errors.gender = "Please select gender";
       }
       if (!values.password) {
         errors.password = "Please enter the password";
-      } else if (!passwordPattern.test(formik.values.password)) {
+      }
+      else if (!passwordPattern.test(formik.values.password)) {
         errors.password = "Password is not valid";
       }
       if (!values.verPassword) {
@@ -60,6 +70,16 @@ function Register() {
       }
       return errors;
     },
+    onSubmit: async (values) => {
+      try {
+        console.log(values);
+        let register = await axios.post(`${config.api}/register/registerUser`, values);
+        alert(register.data.message);
+        navigate('/');
+      } catch (error) {
+        console.log(error);
+      }
+    }
   });
   return (
     <div className="min-h-screen flex flex-col justify-center bg-gradient-to-r from-gray-600 to-gray-500">
@@ -183,7 +203,8 @@ function Register() {
                   type="radio"
                   id="male"
                   name="gender"
-                  value={(formik.values.gender = "Male")}
+                  value="male"
+                  onChange={handlegender}
                 />
                 <label
                   className="mr-2 ml-2 text-lg font-bold text-gray-300 block"
@@ -196,7 +217,8 @@ function Register() {
                   type="radio"
                   id="female"
                   name="gender"
-                  value={(formik.values.gender = "Female")}
+                  value="female"
+                  onChange={handlegender}
                 />
                 <label
                   className="mr-2 ml-2 text-lg font-bold text-gray-300 block"
@@ -204,7 +226,6 @@ function Register() {
                 >
                   Female
                 </label>
-                <br />
               </div>
               {formik.errors.gender ? (
                 <span className="text-red-500 text-xs italic">
@@ -251,10 +272,10 @@ function Register() {
                 </span>
               ) : null}
             </div>
+            <button type={"submit"} className="w-1/6 py-2 px-4 mt-4 ml-4 bg-gray-500 hover:bg-gray-600 rounded-md text-white text-lg">
+              Register
+            </button>
           </form>
-          <button className="w-1/6 py-2 px-4 mt-4 ml-4 bg-gray-500 hover:bg-gray-600 rounded-md text-white text-lg">
-            Register
-          </button>
         </div>
       </div>
     </div>

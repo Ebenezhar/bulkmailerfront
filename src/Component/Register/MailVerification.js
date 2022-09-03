@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 import UserContext from "../../UserContext/UserContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { config } from "../../Config/config";
 
 function MailVerification() {
-  const notify = () => toast("Wow so easy!");
+  const notify = () => toast("Mail sent");
   let navigate = useNavigate();
   const userContextData = useContext(UserContext);
   const emailPattern = new RegExp(/^\S+@\S+\.\S+$/);
@@ -28,6 +29,9 @@ function MailVerification() {
     onSubmit: async (values) => {
       try {
         userContextData.setmailid(values.email);
+        let mail = await axios.post(`${config.api}/register/sendmail`, values);
+        alert(mail.data.message);
+        userContextData.setOtp(mail.data.otp);
         navigate("/register/verifyOtp");
       } catch (errors) {
         console.log(errors);
@@ -93,7 +97,7 @@ function MailVerification() {
             </div>
             <button
               type={"submit"}
-              onClick={notify}
+              // onClick={notify}
               className=" w-2/6 mt-9 mb-4 bg-gray-500 hover:bg-gray-600 rounded-md text-white text-lg"
             >
               send Mail
