@@ -5,13 +5,14 @@ import Portal from "./Component/Dashboard/Portal";
 import ForgotPassword from "./Component/ForgotPassword/ForgotPassword";
 import Login from "./Component/Login/Login";
 import AddRecipient from "./Component/Recipients/AddRecipient";
+import EditRecipient from "./Component/Recipients/EditRecipient";
 import Recipients from "./Component/Recipients/Recipients";
 import MailVerification from "./Component/Register/MailVerification";
 import Register from "./Component/Register/Register";
 import VerifyOtp from "./Component/Register/VerifyOtp";
-import SendMail from "./Component/Mail/SendMail";
+import Draft from "./Component/sendMail/DraftedMails";
+import SendMail from "./Component/sendMail/SendMail";
 import { UserProvider } from "./UserContext/UserContext";
-import Draft from "./Component/Mail/Draft";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/portal" element={<Dashboard />} />
             <Route path="/portal/recipients" element={<Recipients />} />
             <Route path="/portal/recipients/addrecipients" element={<AddRecipient />} />
+            <Route path="/portal/recipients/editRecipients/:id" element={<EditRecipient />} />
             <Route path="/portal/sendmail" element={<SendMail />} />
             <Route path="/portal/draft" element={<Draft />} />
           </Route>

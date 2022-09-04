@@ -1,8 +1,22 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
+import axios from 'axios';
 import { useFormik } from "formik";
 import { Link } from 'react-router-dom';
+import { config } from '../../Config/config';
+import UserContext from '../../UserContext/UserContext';
 
 function Recipients() {
+    const userContextData = useContext(UserContext);
+    console.log(userContextData.recipients)
+    const userId = localStorage.getItem('id');
+    useEffect(() => {
+        fetchData();
+    }, [])
+    let value = localStorage.getItem('id');
+    let fetchData = async () => {
+        let userData = await axios.get(`${config.api}/portal/recipients/${userId}`,);
+        userContextData.setRecipient(userData.data);
+    }
     const formik = useFormik({
         initialValues: {
             keyword: ""
@@ -45,7 +59,6 @@ function Recipients() {
             <table class="w-full border-1 mt-1 border-black text-lg text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-lg text-gray-700 uppercase  bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="py-2 px-5">S.No</th>
                         <th scope="col" class="py-2 px-5">Name</th>
                         <th scope="col" class="py-2 px-5">Email</th>
                         <th scope="col" class="py-2 px-5">Category</th>
@@ -53,13 +66,31 @@ function Recipients() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <td class="py-2 px-5">1</td>
-                        <td scope="row" class="py-2 px-5 font-medium text-gray-900 whitespace-nowrap dark:text-white">Witchy Woman</td>
-                        <td class="py-2 px-5">The Eagles</td>
-                        <td class="py-2 px-5">Sales</td>
-                        <td class="py-2 px-5">1972</td>
-                    </tr>
+                    {
+                        userContextData.recipients.map((recipient) => {
+                            return (<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td scope="row" class="py-2 px-5 font-medium text-gray-900 whitespace-nowrap dark:text-white">{recipient.name}</td>
+                                <td class="py-2 px-5">{recipient.email}</td>
+                                <td class="py-2 px-5">{recipient.category}</td>
+                                <td class="py-2 px-5 flex flex-row">
+                                    <Link
+                                        to={`/portal/recipients/editRecipients${recipient.id}`}
+                                        className="flex flex-row bg-blue-600 px-2 mr-2 rounded-lg text-black font-bold hover:bg-red-700 hover:font-bolder"
+                                    >
+                                        Edit
+
+                                    </Link>
+                                    <button
+                                        className="flex flex-row bg-red-600 px-2 mr-2 rounded-lg text-black font-bold hover:bg-red-700 hover:font-bolder"
+                                    >
+                                        Delete
+
+                                    </button>
+                                </td>
+                            </tr>)
+                        })
+                    }
+
                 </tbody>
             </table>
 

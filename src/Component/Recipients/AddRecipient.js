@@ -1,10 +1,12 @@
 import React, { useContext } from 'react'
 import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
 import UserContext from '../../UserContext/UserContext';
 import axios from 'axios';
 import { config } from '../../Config/config';
 
 function AddRecipient() {
+    let navigate = useNavigate();
     const userContextData = useContext(UserContext);
     const tempList = userContextData.AddTempRecipient;
     let currentRecipientList = userContextData.recipients;
@@ -20,7 +22,13 @@ function AddRecipient() {
         const tempList = userContextData.AddTempRecipient;
         console.log(tempList);
         const update = await axios.post(`${config.api}/portal/addRecipients`, tempList);
-
+        console.log(update);
+        alert(`${update.data.message}`);
+        if (update) {
+            userContextData.setAddTempRecipient([]);
+            console.log(userContextData.AddTempRecipient);
+            navigate('/portal/recipients');
+        }
     }
 
     const formik = useFormik({
@@ -31,8 +39,6 @@ function AddRecipient() {
         },
         validate: (values) => {
             let errors = {};
-
-
             if (!values.name) {
                 errors.name = "Please enter your first name";
             } else if (values.name.length < 5) {
@@ -57,11 +63,9 @@ function AddRecipient() {
 
         },
         onSubmit: async (values) => {
-            values.id = localStorage.getItem("id")
-            console.log(values);
+            values.ownerId = localStorage.getItem("id")
             userContextData.setAddTempRecipient([...userContextData.AddTempRecipient, values])
-            console.log(userContextData.AddTempRecipient);
-            console.log(tempList);
+
         }
     })
     return (
