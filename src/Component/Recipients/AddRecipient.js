@@ -9,25 +9,23 @@ function AddRecipient() {
     let navigate = useNavigate();
     const userContextData = useContext(UserContext);
     const tempList = userContextData.AddTempRecipient;
-    let currentRecipientList = userContextData.recipients;
     const emailPattern = new RegExp(/^\S+@\S+\.\S+$/);
     const handleRemove = (id) => {
-        console.log(id);
-        console.log(tempList);
         let recipientIndex = tempList.findIndex(obj => obj.email == id);
         tempList.splice(recipientIndex, 1);
         userContextData.setAddTempRecipient([...tempList])
     }
     const addToRecipientList = async () => {
         const tempList = userContextData.AddTempRecipient;
-        console.log(tempList);
-        const update = await axios.post(`${config.api}/portal/addRecipients`, tempList);
-        console.log(update);
+        const update = await axios.post(`${config.api}/portal/addRecipients`, tempList, {
+            headers: {
+                'Authorization': `${localStorage.getItem('token')}`
+            }
+        });
         alert(`${update.data.message}`);
         if (update) {
             userContextData.setAddTempRecipient([]);
-            console.log(userContextData.AddTempRecipient);
-            navigate('/portal/recipients');
+            navigate('/portal');
         }
     }
 

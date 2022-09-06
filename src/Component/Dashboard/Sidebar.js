@@ -42,11 +42,11 @@ function Sidebar() {
           />
         </svg>
 
-        <h2 className="text-start text-3xl pt-3 font-bold"> Mailer</h2>
+        <h2 className="text-start text-3xl pt-3 font-bold tracking-widest"> Mailer</h2>
       </Link>
       <div className="flex flex-col justify-between flex-auto">
         <div className="ml-2 my-5 bg-green">
-          <Link to='/portal' className="flex flex-row rounded-lg bg-gray-500 mx-1 my-2 justify-center pt-2 hover:bg-gray-700 hover:text-red-700 text-white space-x-3">
+          {/* <Link to='/portal' className="flex flex-row rounded-lg bg-gray-500 mx-1 my-2 justify-center pt-2 hover:bg-gray-700 hover:text-red-700 text-white space-x-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -65,8 +65,8 @@ function Sidebar() {
             <h4 className="pb-2 text-lg hover:text-red-700 text-white">
               Dashboard
             </h4>
-          </Link>
-          <Link to='/portal/recipients' className="flex flex-row justify-center rounded-lg bg-gray-500 mx-1 my-2 pt-2 hover:bg-gray-700 hover:text-red-700 text-white space-x-3">
+          </Link> */}
+          <Link to='/portal' className="flex flex-row justify-center rounded-lg bg-gray-500 mx-1 my-2 pt-2 hover:bg-gray-700 hover:text-red-700 text-white space-x-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -109,15 +109,15 @@ function Sidebar() {
               <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
             </svg>
             <h4 className="pb-2 text-lg hover:text-red-700 text-white">
-              Draft
+              Drafts
             </h4>
           </Link>
         </div>
         <div className="flex flex-col mb-5 py-2 justify-between">
-          <div className=" flex mb-2 flex-row bg-white mx-2 px-5 rounded-3xl justify-around">
+          <Link to='/portal/profile' className=" flex mb-2 flex-row bg-white mx-2 px-5 rounded-3xl justify-around">
             {avatar}
-            <h4 className="p-3 text-lg">{userName}</h4>
-          </div>
+            <h4 className="p-3 font-bold text-lg">{userName}</h4>
+          </Link>
           <button onClick={() => { doLogout() }} className="flex flex-row bg-white mx-10 m-2 mt-2 px-2 rounded-xl justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 my-3 mr-2 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />

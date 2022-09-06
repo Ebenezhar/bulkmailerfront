@@ -7,16 +7,33 @@ import UserContext from '../../UserContext/UserContext';
 
 function Recipients() {
     const userContextData = useContext(UserContext);
-    console.log(userContextData.recipients)
-    const userId = localStorage.getItem('id');
     useEffect(() => {
         fetchData();
-    }, [])
-    let value = localStorage.getItem('id');
+    }, []);
+
     let fetchData = async () => {
-        let userData = await axios.get(`${config.api}/portal/recipients/${userId}`,);
+        let userData = await axios.get(`${config.api}/portal/recipients/`, {
+            headers: {
+                'Authorization': `${localStorage.getItem('token')}`
+            }
+        });
         userContextData.setRecipient(userData.data);
     }
+    const handleDelete = async (id) => {
+        let ask = window.confirm("Are you sure you want to delete this recipient ?");
+        if (ask) {
+            console.log(id);
+            let result = await axios.delete(`${config.api}/portal/recipient/${id}`, {
+                headers: {
+                    'Authorization': `${localStorage.getItem('token')}`
+                }
+            });
+            alert(result.data.message);
+            fetchData();
+        }
+
+    }
+
     const formik = useFormik({
         initialValues: {
             keyword: ""
@@ -74,13 +91,13 @@ function Recipients() {
                                 <td class="py-2 px-5">{recipient.category}</td>
                                 <td class="py-2 px-5 flex flex-row">
                                     <Link
-                                        to={`/portal/recipients/editRecipients${recipient.id}`}
+                                        to={`/portal/recipients/editRecipients/${recipient._id}`}
                                         className="flex flex-row bg-blue-600 px-2 mr-2 rounded-lg text-black font-bold hover:bg-red-700 hover:font-bolder"
                                     >
                                         Edit
-
                                     </Link>
                                     <button
+                                        onClick={() => handleDelete(recipient._id)}
                                         className="flex flex-row bg-red-600 px-2 mr-2 rounded-lg text-black font-bold hover:bg-red-700 hover:font-bolder"
                                     >
                                         Delete

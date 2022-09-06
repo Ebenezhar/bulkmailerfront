@@ -41,13 +41,14 @@ function Login() {
           alert(login.data.message);
         }
       } catch (error) {
-        console.log(error);
+        alert(error.response.data.message);
+        // console.log(error);
       }
     },
   });
   return (
-    <div className="min-h-screen bg-grey-50 flex flex-col justify-center bg-gradient-to-r from-emerald-400 to-emerald-200">
-      <div className="max-w-md w-full mx-auto mt-4 bg-white p-8 border border-grey-300 rounded shadow-2xl">
+    <div className="min-h-screen bg-grey-50 flex flex-col justify-center bg-gray-800">
+      <div className="max-w-md justify-between w-full mx-auto mt-4 bg-white p-8 py-10 border border-grey-300 rounded shadow-2xl">
         <div className="text-start text-white mb-10 font-bold">
           <img
             style={{ display: "inline" }}
@@ -87,13 +88,13 @@ function Login() {
             placeholder="********"
           ></input>
           <div className="w-full flex flex-wrap mb-2 justify-between">
-            <button type={"submit"} className="w-2/6 py-2 px-4 bg-emerald-400 hover:bg-emerald-300 rounded-md text-blue-800 text-sm font-bold">
+            <button type={"submit"} className="w-2/6 py-2 px-4 bg-gray-400 hover:bg-gray-300 rounded-md text-blue-800 text-sm font-bold">
               Login
             </button>
             <p>
               <Link
                 className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-                to="/forgotPassword"
+                to="reset/forgotPassword"
               >
                 {" "}
                 Forgot password ?
@@ -112,6 +113,7 @@ function Login() {
         </p>
       </div>
     </div>
+
   );
 }
 

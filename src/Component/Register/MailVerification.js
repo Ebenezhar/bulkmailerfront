@@ -34,7 +34,7 @@ function MailVerification() {
         userContextData.setOtp(mail.data.otp);
         navigate("/register/verifyOtp");
       } catch (errors) {
-        console.log(errors);
+        alert(errors.response.data.message);
       }
     },
   });
