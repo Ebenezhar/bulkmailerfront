@@ -51,7 +51,7 @@ function VerifyOtp() {
           >
             <div className="flex flex-col w-5/6  m-4">
               <label className="text-sm font-bold text-gray-600 block ">
-                Enter the OPT:
+                Enter the OTP:
               </label>
               <input
                 type={"Number"}
