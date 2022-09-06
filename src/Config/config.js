@@ -1,3 +1,6 @@
 export const config = {
-  api: "http://localhost:5000",
+  api: "https://bulk-mailer-tool.herokuapp.com",
 };
+//https://bulk-mailer-tool.herokuapp.com/
+
+//http://localhost:5000
