@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import UserContext from "../../UserContext/UserContext";
 import { ToastContainer, toast } from "react-toastify";
@@ -9,7 +9,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { config } from "../../Config/config";
 
 function MailVerification() {
-  const notify = () => toast("Mail sent");
+
+  const notify = () => {
+    toast.success("Email sent !");
+  }
   let navigate = useNavigate();
   const userContextData = useContext(UserContext);
   const emailPattern = new RegExp(/^\S+@\S+\.\S+$/);
@@ -30,9 +33,13 @@ function MailVerification() {
       try {
         userContextData.setmailid(values.email);
         let mail = await axios.post(`${config.api}/register/sendmail`, values);
-        alert(mail.data.message);
+        // alert(mail.data.message);
         userContextData.setOtp(mail.data.otp);
-        navigate("/register/verifyOtp");
+        notify()
+        setTimeout(() => {
+          navigate("/register/verifyOtp");
+        }, 5 * 1000);
+
       } catch (errors) {
         alert(errors.response.data.message);
       }

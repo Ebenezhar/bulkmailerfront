@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios';
 import { useFormik } from "formik";
 import { Link } from 'react-router-dom';
@@ -7,6 +7,8 @@ import UserContext from '../../UserContext/UserContext';
 
 function Recipients() {
     const userContextData = useContext(UserContext);
+    let tempList = userContextData.recipients
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -36,8 +38,22 @@ function Recipients() {
 
     const formik = useFormik({
         initialValues: {
-            keyword: ""
+            keyword: "",
         },
+        validate: (values) => {
+            let errors = {};
+            if (!values.keyword) {
+                errors.keyword = "Please enter the keyword"
+            }
+            return errors;
+        },
+        onSubmit: (values) => {
+            console.log(values);
+            console.log(tempList);
+            let res = tempList.filter((recipient) => { return recipient[`${values.searchType}`] === values.keyword })
+            userContextData.setRecipient(res);
+            console.log(userContextData.recipients);
+        }
     })
     return (
         <div className='flex m-2 bg-slate-100 rounded-lg p-3 flex-col w-full h-full'>
@@ -49,8 +65,8 @@ function Recipients() {
                         onSubmit={formik.handleSubmit}>
                         <input
                             type={"text"}
-                            name={"email"}
-                            value={formik.values.email}
+                            name={"keyword"}
+                            value={formik.values.keyword}
                             onChange={formik.handleChange}
                             className="w-full p-2 border bg-gray-600 border-gray-300 rounded mt-0 font-medium text-white"
                             placeholder=""
@@ -61,6 +77,31 @@ function Recipients() {
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 hover:font-bold h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                            </svg>
+                        </button>
+                        <label for="searchType" class="form-label">
+                            Search
+                        </label>
+                        <select id="searchType" name="searchType" onClick={formik.handleChange}>
+                            <option id="searchType" name="searchType" className='text-center'>
+                                ---Options---
+                            </option>
+                            <option id="searchType" name="searchType" value="name">
+                                By name
+                            </option>
+                            <option id="searchType" name="searchType" value="email">
+                                By Email
+                            </option>
+                            <option id="searchType" name="searchType" value="category">
+                                By Category
+                            </option>
+                        </select>
+                        <button
+                            onClick={() => fetchData()}
+                            className=" mx-5 px-2 py-1 bg-gray-500 hover:bg-gray-600 rounded-md hover:font-bold text-white text-lg"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                             </svg>
 
                         </button>

@@ -1,9 +1,13 @@
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import UserContext from "../../UserContext/UserContext";
+import { toast, ToastContainer } from "react-toastify";
 function VerifyOtp() {
   let navigate = useNavigate();
+  const notify = () => {
+    toast.success("OTP verifed Successfully !");
+  }
   const userContextData = useContext(UserContext);
   const formik = useFormik({
     initialValues: {
@@ -21,8 +25,11 @@ function VerifyOtp() {
     onSubmit: (values) => {
       try {
         if (values.otp == userContextData.otp) {
-          alert("OTP verified successfully");
-          navigate("/register/form");
+          notify();
+          setTimeout(() => {
+            navigate("/register/form");
+          }, 5 * 1000);
+          // alert("OTP verified successfully");
         } else if (values.otp != userContextData.otp) {
           alert("OTP Mismatched. Try again");
         }
@@ -33,6 +40,17 @@ function VerifyOtp() {
   });
   return (
     <div className="min-h-screen flex flex-col justify-center bg-gradient-to-r from-gray-600 to-gray-500">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className="max-w-lg w-full mx-auto mt-4 bg-gray-800 p-10 rounded-2xl shadow-lg">
         <div className="text-start text-white mb-10 font-bold">
           <img

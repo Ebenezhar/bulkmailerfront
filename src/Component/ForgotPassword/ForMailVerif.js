@@ -63,7 +63,7 @@ function ForMailVerif() {
                 </div>
                 <p className="text-2xl font-bold text-white block">
                     {" "}
-                    Enter your Registered Mail Id
+                    Enter your Registered Mail id
                     {/* <span className="text-5xl font-bold text-gray-500">.</span> */}
                 </p>
 

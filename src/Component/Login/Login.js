@@ -80,7 +80,7 @@ function Login() {
             Password
           </label>
           <input
-            type={"text"}
+            type={"password"}
             name={"password"}
             value={formik.values.password}
             onChange={formik.handleChange}

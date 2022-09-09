@@ -6,6 +6,7 @@ import UserContext from '../../UserContext/UserContext';
 function Profile() {
     const gender = localStorage.getItem("gender");
     const userContextData = useContext(UserContext);
+    console.log(userContextData.profile);
     useEffect(() => {
         fetchData();
     }, [])

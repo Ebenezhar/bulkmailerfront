@@ -56,7 +56,7 @@ function EditRecipient() {
                     }
                 });
                 alert(result.data.message);
-                navigate('/portal/recipients');
+                navigate('/portal/');
 
             } catch (error) {
                 console.log(error);
