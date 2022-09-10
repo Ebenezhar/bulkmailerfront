@@ -134,7 +134,7 @@ function EditRecipient() {
                             </span>
                         ) : null}
                     </div>
-                    <button className="flex flex-row justify-center mx-3 py-2 px-2 mb-2 mt-7 bg-gray-500 hover:bg-gray-600 rounded-md text-white text-lg">
+                    <button className="flex flex-row justify-center mx-3 py-2 px-2 mb-2 mt-7 bg-gray-500 hover:bg-gray-600 rounded-md text-white text-lg h-10">
                         <p className='font-bold px-1' type={"submit"}> Save Changes</p>
                     </button>
                 </form>

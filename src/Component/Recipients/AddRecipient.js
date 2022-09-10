@@ -4,11 +4,16 @@ import { useNavigate } from "react-router-dom";
 import UserContext from '../../UserContext/UserContext';
 import axios from 'axios';
 import { config } from '../../Config/config';
+import { toast, ToastContainer } from 'react-toastify';
 
 function AddRecipient() {
     let navigate = useNavigate();
+    const notify = (message) => {
+        toast.success(message);
+    }
     const userContextData = useContext(UserContext);
     const tempList = userContextData.AddTempRecipient;
+    const fullList = userContextData.recipients
     const emailPattern = new RegExp(/^\S+@\S+\.\S+$/);
     const handleRemove = (id) => {
         let recipientIndex = tempList.findIndex(obj => obj.email == id);
@@ -22,10 +27,13 @@ function AddRecipient() {
                 'Authorization': `${localStorage.getItem('token')}`
             }
         });
-        alert(`${update.data.message}`);
+        notify(update.data.message)
+        // alert(`${update.data.message}`);
         if (update) {
             userContextData.setAddTempRecipient([]);
-            navigate('/portal');
+            setTimeout(() => {
+                navigate('/portal');
+            }, 3 * 1000);
         }
     }
 
@@ -36,9 +44,10 @@ function AddRecipient() {
             category: '',
         },
         validate: (values) => {
+            console.log(values);
             let errors = {};
             if (!values.name) {
-                errors.name = "Please enter your first name";
+                errors.name = "Please enter the name";
             } else if (values.name.length < 5) {
                 errors.name = "Length must be at least 5 characters";
             }
@@ -46,14 +55,12 @@ function AddRecipient() {
                 errors.email = "Please enter your email";
             } else if (!emailPattern.test(formik.values.email)) {
                 errors.email = "Email is not valid";
+            } else if (tempList.some((recipient) => { return recipient.email === values.email })) {
+                errors.email = "Email already exists";
             }
-            // else if (tempList.some(({ email }) => { email == values.email })) {
-            //     errors.email = "Duplicate";
-            // }
-            // const duplicate2 = currentRecipientList.some(({ email }) => { email == values.email });
-            // if (duplicate2) {
-            //     errors.email = "Email already exists";
-            // }
+            else if (fullList.some((recipient) => { return recipient.email === values.email })) {
+                errors.email = "Email already exists";
+            }
             if (!values.category) {
                 errors.category = "Please Enter a category";
             }
@@ -68,6 +75,17 @@ function AddRecipient() {
     })
     return (
         <div className='flex flex-col w-full h-full'>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <div className='flex flex-col flex-wrap bg-white px-4 py-2 justify-center'>
                 <h4 className="text-lg mt-3 mx-2 font-bold text-black block">Enter the Recipient Details</h4>
 
@@ -135,11 +153,11 @@ function AddRecipient() {
                             </span>
                         ) : null}
                     </div>
-                    <button className="flex flex-row justify-center mx-3 py-2 px-2 mb-2 mt-7 bg-gray-500 hover:bg-gray-600 rounded-md text-white text-lg">
+                    <button className="flex flex-row justify-center mx-3 py-2 px-2 mb-2 mt-7 bg-gray-500 hover:bg-gray-600 rounded-md text-white text-lg h-10">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                         </svg>
-                        <p className='font-bold px-1'> Add</p>
+                        <p className='font-bold px-1 '> Add</p>
                     </button>
                 </form>
                 <table className="w-full border-1 mt-4 border-black text-lg text-left text-gray-500 dark:text-gray-400">

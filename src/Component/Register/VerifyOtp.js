@@ -88,7 +88,7 @@ function VerifyOtp() {
             </div>
             <button
               type={"submit"}
-              className=" w-2/6 mt-9 mb-4 bg-gray-500 hover:bg-gray-600 rounded-md text-white text-lg"
+              className=" w-2/6 mt-9 mb-4 bg-gray-500 hover:bg-gray-600 rounded-md text-white text-lg h-10"
             >
               verify
             </button>

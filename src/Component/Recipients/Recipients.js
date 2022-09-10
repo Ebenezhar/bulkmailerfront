@@ -4,11 +4,14 @@ import { useFormik } from "formik";
 import { Link } from 'react-router-dom';
 import { config } from '../../Config/config';
 import UserContext from '../../UserContext/UserContext';
+import { toast, ToastContainer } from 'react-toastify';
 
 function Recipients() {
     const userContextData = useContext(UserContext);
-    let tempList = userContextData.recipients
-
+    let tempList = userContextData.recipients;
+    const notify = (message) => {
+        toast.success(message);
+    }
     useEffect(() => {
         fetchData();
     }, []);
@@ -30,7 +33,8 @@ function Recipients() {
                     'Authorization': `${localStorage.getItem('token')}`
                 }
             });
-            alert(result.data.message);
+            notify(result.data.message)
+            // alert(result.data.message);
             fetchData();
         }
 
@@ -57,6 +61,17 @@ function Recipients() {
     })
     return (
         <div className='flex m-2 bg-slate-100 rounded-lg p-3 flex-col w-full h-full'>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <h1 className='text-gray-900 text-3xl p-2 font-bold'>Recipients</h1>
             <div className='flex flex-row flex-wrap px-4 py-2 justify-between'>
                 <>
