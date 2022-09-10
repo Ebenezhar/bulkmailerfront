@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useFormik } from "formik";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { config } from "../../Config/config";
 import UserContext from "../../UserContext/UserContext";
@@ -9,6 +9,18 @@ function Login() {
   const userContextData = useContext(UserContext)
   const emailPattern = new RegExp(/^\S+@\S+\.\S+$/);
   const navigate = useNavigate();
+  const [view, setView] = useState("password");
+  const [color, setcolor] = useState("text-black");
+  const handleview = () => {
+    if (view == "password") {
+      setView("text");
+      setcolor("text-blue-800");
+    } else {
+      setView("password");
+      setcolor("text-black");
+    }
+
+  }
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -79,14 +91,23 @@ function Login() {
           <label className="text-sm font-bold text-gray-600 block">
             Password
           </label>
-          <input
-            type={"password"}
-            name={"password"}
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            className="w-full p-2 border font-semibold border-gray-300 rounded"
-            placeholder="********"
-          ></input>
+          <div className="w-full flex flex-row justify-between p-2 border font-semibold border-gray-300 rounded ">
+            <input
+              type={`${view}`}
+              className="w-full px-2 focus:outline-none"
+              name={"password"}
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              placeholder="********"
+            ></input>
+            <button className="relative" onClick={() => handleview()} >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className={`w-6 ${color} h-6`}>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </button>
+          </div>
+
           <div className="w-full flex flex-wrap mb-2 justify-between">
             <button type={"submit"} className="w-2/6 py-2 px-4 bg-gray-400 hover:bg-gray-300 rounded-md text-blue-800 text-sm font-bold">
               Login
