@@ -9,12 +9,8 @@ import '../../../node_modules/react-toastify/dist/ReactToastify.css';
 import { config } from "../../Config/config";
 
 function ForVerifyOtp() {
-    useEffect(() => {
-        notify();
-    }, [])
-
-    function notify() {
-        toast("Wow so easy!");
+    const notify = () => {
+        toast.success("OTP verified ✅");
     }
     let navigate = useNavigate();
     const userContextData = useContext(UserContext);
@@ -36,7 +32,8 @@ function ForVerifyOtp() {
             try {
                 let verify = await axios.post(`${config.api}/reset/verifyotp`, values);
                 if (verify.data) {
-                    alert("OTP verified ✅");
+                    notify();
+                    // alert("OTP verified ✅");
                     userContextData.setresetUser(verify.data);
                     navigate('/reset/resetPassword');
                 } else {

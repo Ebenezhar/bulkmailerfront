@@ -5,10 +5,13 @@ import UserContext from '../../UserContext/UserContext';
 import ReceiverCard from './ReceiverCard';
 import axios from 'axios';
 import { config } from '../../Config/config';
+import { toast, ToastContainer } from 'react-toastify';
 
 function SendMail() {
     const userContextData = useContext(UserContext);
-
+    const notify = (message) => {
+        toast.success(message);
+    }
     const addToDraft = async (values) => {
         values.ownerId = localStorage.getItem("id")
         try {
@@ -17,7 +20,7 @@ function SendMail() {
                     'Authorization': `${localStorage.getItem('token')}`
                 }
             });
-            alert(result.data.message);
+            notify(result.data.message);
         } catch (error) {
             console.log(error);
         }
@@ -51,6 +54,17 @@ function SendMail() {
     })
     return (
         <div className='flex  m-2 bg-slate-100 rounded-lg p-3 flex-col w-full h-full'>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <h1 className='text-gray-900 text-3xl p-2 font-bold'>Mail Box</h1>
             <div className='flex  flex-row'>
                 <div className='flex flex-col w-3/6 p-3 min-h-full'>

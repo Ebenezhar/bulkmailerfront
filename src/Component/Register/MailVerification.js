@@ -39,7 +39,6 @@ function MailVerification() {
         setTimeout(() => {
           navigate("/register/verifyOtp");
         }, 5 * 1000);
-
       } catch (errors) {
         alert(errors.response.data.message);
       }

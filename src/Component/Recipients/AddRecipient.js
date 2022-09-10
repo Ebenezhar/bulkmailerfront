@@ -28,7 +28,6 @@ function AddRecipient() {
             }
         });
         notify(update.data.message)
-        // alert(`${update.data.message}`);
         if (update) {
             userContextData.setAddTempRecipient([]);
             setTimeout(() => {
