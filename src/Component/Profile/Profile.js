@@ -7,23 +7,7 @@ function Profile() {
     const gender = localStorage.getItem("gender");
     const userContextData = useContext(UserContext);
     console.log(userContextData.profile);
-    useEffect(() => {
-        fetchData();
-    }, [])
-    let fetchData = async () => {
-        try {
-            let userData = await axios.get(`${config.api}/portal/userdetails`, {
-                headers: {
-                    'Authorization': `${localStorage.getItem('token')}`
-                }
-            });
-            userContextData.setProfile(userData.data);
-            console.log(userContextData.profile);
-        } catch (error) {
-            console.log(error);
-        }
-
-    }
+    
     let avatar;
     if (gender == "male") {
         avatar = <img src="https://img.icons8.com/color/160/000000/user-male-skin-type-3.png" />

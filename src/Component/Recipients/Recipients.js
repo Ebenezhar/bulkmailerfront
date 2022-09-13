@@ -9,6 +9,23 @@ import { toast, ToastContainer } from 'react-toastify';
 function Recipients() {
     const userContextData = useContext(UserContext);
     let tempList = userContextData.recipients;
+    useEffect(() => {
+        fetchuserData();
+    }, [])
+    let fetchuserData = async () => {
+        try {
+            let userData = await axios.get(`${config.api}/portal/userdetails`, {
+                headers: {
+                    'Authorization': `${localStorage.getItem('token')}`
+                }
+            });
+            userContextData.setProfile(userData.data);
+            console.log(userContextData.profile);
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
     const notify = (message) => {
         toast.success(message);
     }

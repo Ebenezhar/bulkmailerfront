@@ -98,181 +98,183 @@ function Register() {
         <div className="flex flex-col justify-center items-start">
           <form
             onSubmit={formik.handleSubmit}
-            className="flex flex-wrap align-center"
+            className="flex flex-wrap align-center over"
           >
-            <div className="flex flex-col m-4 w-5/12">
-              <label className="text-sm font-bold text-gray-600 block">
-                First Name
-              </label>
-              <input
-                type={"text"}
-                name={"firstName"}
-                value={formik.values.firstName}
-                onChange={formik.handleChange}
-                className="w-full p-2 border  bg-gray-600 border-gray-300 rounded mt-0 font-medium text-white"
-                placeholder="john"
-              />
-              {formik.errors.firstName ? (
-                <span className="text-red-500 text-xs italic">
-                  {" "}
-                  {formik.errors.firstName}
-                </span>
-              ) : null}
-            </div>
-            <div className="flex flex-col m-4 w-5/12">
-              <label className="text-sm font-bold text-gray-600 block ">
-                Second Name
-              </label>
-              <input
-                type={"text"}
-                name={"secondName"}
-                value={formik.values.secondName}
-                onChange={formik.handleChange}
-                className="w-full p-2 border bg-gray-600 border-gray-300 rounded mt-0 font-medium text-white"
-                placeholder="wick"
-              />
-              {formik.errors.secondName ? (
-                <span className="text-red-500 text-xs italic">
-                  {" "}
-                  {formik.errors.secondName}
-                </span>
-              ) : null}
-            </div>
-            <div className="flex flex-col m-4 w-5/12">
-              <label className="text-sm font-bold text-gray-600 block ">
-                Email
-              </label>
-              <input
-                type={"text"}
-                name={"email"}
-                value={(formik.values.email = userContextData.mailid)}
-                className="w-full p-2 border bg-gray-600 border-gray-300 rounded mt-0 font-medium text-white"
-                placeholder={userContextData.mailid}
-              />
-              {formik.errors.email ? (
-                <span className="text-red-500 text-xs italic">
-                  {" "}
-                  {formik.errors.email}
-                </span>
-              ) : null}
-            </div>
-            <div className="flex flex-col m-4 w-5/12">
-              <label className="text-sm font-bold text-gray-600 block ">
-                Age
-              </label>
-              <input
-                type={"Number"}
-                name={"age"}
-                value={formik.values.age}
-                onChange={formik.handleChange}
-                className="w-full p-2 border bg-gray-600 border-gray-300 rounded mt-0 font-medium text-white"
-                placeholder=""
-              />
-              {formik.errors.age ? (
-                <span className="text-red-500 text-xs italic">
-                  {" "}
-                  {formik.errors.age}
-                </span>
-              ) : null}
-            </div>
-            <div className="flex flex-col m-4 w-5/12">
-              <label className="text-sm font-bold text-gray-600 block ">
-                Country
-              </label>
-              <input
-                type={"text"}
-                name={"country"}
-                value={formik.values.country}
-                onChange={formik.handleChange}
-                className="w-full p-2 border bg-gray-600 border-gray-300 rounded mt-0 font-medium text-white"
-                placeholder=""
-              />
-              {formik.errors.country ? (
-                <span className="text-red-500 text-xs italic">
-                  {" "}
-                  {formik.errors.country}
-                </span>
-              ) : null}
-            </div>
-            <div className="flex flex-col m-4 w-5/12">
-              <label className="text-sm font-bold text-gray-600 block ">
-                Gender
-              </label>
-              <div className="flex flex-row align-center">
-                <input
-                  type="radio"
-                  id="male"
-                  name="gender"
-                  value="male"
-                  onChange={handlegender}
-                />
-                <label
-                  className="mr-2 ml-2 text-lg font-bold text-gray-300 block"
-                  for="male"
-                >
-                  Male
+            <div className="flex flex-wrap align-center over">
+              <div className="flex flex-col m-4 w-5/12">
+                <label className="text-sm font-bold text-gray-600 block">
+                  First Name
                 </label>
-                <br />
                 <input
-                  type="radio"
-                  id="female"
-                  name="gender"
-                  value="female"
-                  onChange={handlegender}
+                  type={"text"}
+                  name={"firstName"}
+                  value={formik.values.firstName}
+                  onChange={formik.handleChange}
+                  className="w-full p-2 border  bg-gray-600 border-gray-300 rounded mt-0 font-medium text-white"
+                  placeholder="john"
                 />
-                <label
-                  className="mr-2 ml-2 text-lg font-bold text-gray-300 block"
-                  for="female"
-                >
-                  Female
-                </label>
+                {formik.errors.firstName ? (
+                  <span className="text-red-500 text-xs italic">
+                    {" "}
+                    {formik.errors.firstName}
+                  </span>
+                ) : null}
               </div>
-              {formik.errors.gender ? (
-                <span className="text-red-500 text-xs italic">
-                  {" "}
-                  {formik.errors.gender}
-                </span>
-              ) : null}
+              <div className="flex flex-col m-4 w-5/12">
+                <label className="text-sm font-bold text-gray-600 block ">
+                  Second Name
+                </label>
+                <input
+                  type={"text"}
+                  name={"secondName"}
+                  value={formik.values.secondName}
+                  onChange={formik.handleChange}
+                  className="w-full p-2 border bg-gray-600 border-gray-300 rounded mt-0 font-medium text-white"
+                  placeholder="wick"
+                />
+                {formik.errors.secondName ? (
+                  <span className="text-red-500 text-xs italic">
+                    {" "}
+                    {formik.errors.secondName}
+                  </span>
+                ) : null}
+              </div>
+              <div className="flex flex-col m-4 w-5/12">
+                <label className="text-sm font-bold text-gray-600 block ">
+                  Email
+                </label>
+                <input
+                  type={"text"}
+                  name={"email"}
+                  value={(formik.values.email = userContextData.mailid)}
+                  className="w-full p-2 border bg-gray-600 border-gray-300 rounded mt-0 font-medium text-white"
+                  placeholder={userContextData.mailid}
+                />
+                {formik.errors.email ? (
+                  <span className="text-red-500 text-xs italic">
+                    {" "}
+                    {formik.errors.email}
+                  </span>
+                ) : null}
+              </div>
+              <div className="flex flex-col m-4 w-5/12">
+                <label className="text-sm font-bold text-gray-600 block ">
+                  Age
+                </label>
+                <input
+                  type={"Number"}
+                  name={"age"}
+                  value={formik.values.age}
+                  onChange={formik.handleChange}
+                  className="w-full p-2 border bg-gray-600 border-gray-300 rounded mt-0 font-medium text-white"
+                  placeholder=""
+                />
+                {formik.errors.age ? (
+                  <span className="text-red-500 text-xs italic">
+                    {" "}
+                    {formik.errors.age}
+                  </span>
+                ) : null}
+              </div>
+              <div className="flex flex-col m-4 w-5/12">
+                <label className="text-sm font-bold text-gray-600 block ">
+                  Country
+                </label>
+                <input
+                  type={"text"}
+                  name={"country"}
+                  value={formik.values.country}
+                  onChange={formik.handleChange}
+                  className="w-full p-2 border bg-gray-600 border-gray-300 rounded mt-0 font-medium text-white"
+                  placeholder=""
+                />
+                {formik.errors.country ? (
+                  <span className="text-red-500 text-xs italic">
+                    {" "}
+                    {formik.errors.country}
+                  </span>
+                ) : null}
+              </div>
+              <div className="flex flex-col m-4 w-5/12">
+                <label className="text-sm font-bold text-gray-600 block ">
+                  Gender
+                </label>
+                <div className="flex flex-row align-center">
+                  <input
+                    type="radio"
+                    id="male"
+                    name="gender"
+                    value="male"
+                    onChange={handlegender}
+                  />
+                  <label
+                    className="mr-2 ml-2 text-lg font-bold text-gray-300 block"
+                    for="male"
+                  >
+                    Male
+                  </label>
+                  <br />
+                  <input
+                    type="radio"
+                    id="female"
+                    name="gender"
+                    value="female"
+                    onChange={handlegender}
+                  />
+                  <label
+                    className="mr-2 ml-2 text-lg font-bold text-gray-300 block"
+                    for="female"
+                  >
+                    Female
+                  </label>
+                </div>
+                {formik.errors.gender ? (
+                  <span className="text-red-500 text-xs italic">
+                    {" "}
+                    {formik.errors.gender}
+                  </span>
+                ) : null}
+              </div>
+              <div className="flex flex-col m-4 w-5/12">
+                <label className="text-sm font-bold text-gray-600 block">
+                  Password
+                </label>
+                <input
+                  type={"text"}
+                  name={"password"}
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  className="w-full p-2 border bg-gray-600 border-gray-300 rounded mt-0 font-medium text-white"
+                  placeholder="**********"
+                />
+                {formik.errors.password ? (
+                  <span className="text-red-500 text-xs italic">
+                    {" "}
+                    {formik.errors.password}
+                  </span>
+                ) : null}
+              </div>
+              <div className="flex flex-col m-4 w-5/12">
+                <label className="text-sm font-bold text-gray-600 block">
+                  Verify Password
+                </label>
+                <input
+                  type={"text"}
+                  name={"verPassword"}
+                  value={formik.values.verPassword}
+                  onChange={formik.handleChange}
+                  className="w-full p-2 border bg-gray-600 border-gray-300 rounded mt-0 font-medium text-white"
+                  placeholder="**********"
+                />
+                {formik.errors.verPassword ? (
+                  <span className="text-red-500 text-xs italic">
+                    {" "}
+                    {formik.errors.verPassword}
+                  </span>
+                ) : null}
+              </div>
             </div>
-            <div className="flex flex-col m-4 w-5/12">
-              <label className="text-sm font-bold text-gray-600 block">
-                Password
-              </label>
-              <input
-                type={"text"}
-                name={"password"}
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                className="w-full p-2 border bg-gray-600 border-gray-300 rounded mt-0 font-medium text-white"
-                placeholder="**********"
-              />
-              {formik.errors.password ? (
-                <span className="text-red-500 text-xs italic">
-                  {" "}
-                  {formik.errors.password}
-                </span>
-              ) : null}
-            </div>
-            <div className="flex flex-col m-4 w-5/12">
-              <label className="text-sm font-bold text-gray-600 block">
-                Verify Password
-              </label>
-              <input
-                type={"text"}
-                name={"verPassword"}
-                value={formik.values.verPassword}
-                onChange={formik.handleChange}
-                className="w-full p-2 border bg-gray-600 border-gray-300 rounded mt-0 font-medium text-white"
-                placeholder="**********"
-              />
-              {formik.errors.verPassword ? (
-                <span className="text-red-500 text-xs italic">
-                  {" "}
-                  {formik.errors.verPassword}
-                </span>
-              ) : null}
-            </div>
-            <button type={"submit"} className="w-1/6 py-2 px-4 mt-4 ml-4 bg-gray-500 hover:bg-gray-600 rounded-md text-white text-lg">
+            <button type={"submit"} className="w-60 py-2 px-4 mt-4 ml-4 bg-gray-500 hover:bg-gray-600 hover:font-bold rounded-md text-white text-lg">
               Register
             </button>
           </form>
