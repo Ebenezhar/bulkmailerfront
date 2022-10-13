@@ -240,7 +240,7 @@ function Register() {
                   Password
                 </label>
                 <input
-                  type={"text"}
+                  type={"password"}
                   name={"password"}
                   value={formik.values.password}
                   onChange={formik.handleChange}
@@ -259,7 +259,7 @@ function Register() {
                   Verify Password
                 </label>
                 <input
-                  type={"text"}
+                  type={"password"}
                   name={"verPassword"}
                   value={formik.values.verPassword}
                   onChange={formik.handleChange}
@@ -274,7 +274,7 @@ function Register() {
                 ) : null}
               </div>
             </div>
-            <button type={"submit"} className="w-60 py-2 px-4 mt-4 ml-4 bg-gray-500 hover:bg-gray-600 hover:font-bold rounded-md text-white text-lg">
+            <button type={"submit"} >
               Register
             </button>
           </form>
