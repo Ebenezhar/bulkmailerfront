@@ -274,7 +274,10 @@ function Register() {
                 ) : null}
               </div>
             </div>
-            <button type={"submit"} >
+            <button type={"submit"}
+              className=" mx-3 px-2 mt-9 mb-4 bg-gray-500 hover:bg-gray-600 rounded-md text-white text-lg h-10"
+            >
+
               Register
             </button>
           </form>
