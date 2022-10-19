@@ -128,7 +128,7 @@ function Login() {
           Don't you have an account?{" "}
           <Link
             className="text-blue-500 text-sm hover:text-blue-700 underline-offset-0 hover:font-bold hover:underline-offset-4"
-            to="/register/verifyMail"
+            to="/register/form"
           >
             <u>Register</u>
           </Link>

@@ -106,7 +106,7 @@ function MailVerification() {
               // onClick={notify}
               className=" w-2/6 mt-9 mb-4 bg-gray-500 hover:bg-gray-600 rounded-md text-white text-lg h-10"
             >
-              send Mail
+              Mail verification
             </button>
           </form>
         </div>

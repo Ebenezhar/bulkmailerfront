@@ -146,7 +146,8 @@ function Register() {
                 <input
                   type={"text"}
                   name={"email"}
-                  value={(formik.values.email = userContextData.mailid)}
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
                   className="w-full p-2 border bg-gray-600 border-gray-300 rounded mt-0 font-medium text-white"
                   placeholder={userContextData.mailid}
                 />
