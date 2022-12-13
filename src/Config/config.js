@@ -1,5 +1,5 @@
 export const config = {
-  api: "https://bulk-mailer-tool.herokuapp.com",
+  api: "https://bulkmailerserver.vercel.app",
 };
 //https://bulk-mailer-tool.herokuapp.com
 
